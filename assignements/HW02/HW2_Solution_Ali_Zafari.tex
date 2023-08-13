@@ -1,0 +1,224 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{empheq}
+\usepackage{mathtools}
+\usepackage{physics}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.2}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{\firstxmark}
+%\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Question Sections
+%
+
+\newcommand{\enterQuestionHeader}[1]{
+	\nobreak\extramarks{}{Question \arabic{#1} cont'd on next page\ldots}\nobreak{}
+	\nobreak\extramarks{Question \arabic{#1} (cont'd)}{Question \arabic{#1} cont'd on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitQuestionHeader}[1]{
+	\nobreak\extramarks{Question \arabic{#1} (cont'd)}{Question \arabic{#1} cont'd on next page\ldots}\nobreak{}
+	\stepcounter{#1}
+	\nobreak\extramarks{Question \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkQuestionCounter}
+\setcounter{homeworkQuestionCounter}{1}
+\nobreak\extramarks{Question \arabic{homeworkQuestionCounter}}{}\nobreak{}
+
+%
+% Homework Question Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkQuestion}[1][-1]{
+	\ifnum#1>0
+	\setcounter{homeworkQuestionCounter}{#1}
+	\fi
+	\section{Question \arabic{homeworkQuestionCounter}}
+	\rule{0.7\textwidth}{3pt}
+	\setcounter{partCounter}{1}
+	\enterQuestionHeader{homeworkQuestionCounter}
+}{
+	\exitQuestionHeader{homeworkQuestionCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{HW\ \#2}
+\newcommand{\hmwkDueDate}{}
+\newcommand{\hmwkClass}{CpE 520}
+\newcommand{\institute}{West Virginia University}
+\newcommand{\hmwkClassInstructor}{Professor Nasser Nasrabadi}
+\newcommand{\hmwkAuthorName}{\textbf{Ali Zafari}}
+
+%
+% Title Page
+%
+
+\title{
+	\vspace{2in}
+	\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+	\vspace{0.1in}\large{\institute}\\
+%	\vspace{0.1in}\large{\textit{\hmwkClassInstructor}}
+	\vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\huge Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+
+\begin{document}
+	
+	\pagenumbering{gobble}% prevent cover page of numbering
+	\maketitle
+	\pagebreak % let cover page free to the end of page
+	\pagenumbering{arabic} % start page numbering again from 1 and print them!
+	
+	\begin{homeworkQuestion}
+		\subsection{Part (a): Inverse of $\mathbf{y_{n\times1}=A_{n\times m}x_{m\times 1}}$ where n<m and rank=n }
+		In this case there are more unknowns than equations so the system is underdetermined. Because the matrix $A$ is full rank with $rank=n$, $AA^T$ will be an $n\times n$ non-singular square matrix. Therefore, there will be an inverse for it like below:
+		\begin{equation*}
+		(AA^T)(AA^T)^{-1}  = I
+		\tag{*}
+		\end{equation*}
+		As it is clear from the above equation, we may use $A^T(AA^T)^{-1}$ as a right inverse for matrix $A$. We first assume that the inverse we are seeking for has an equation like  $\mathbf{x_{m\times 1}=R_{m\times n}y_{n\times1}}$. Finding $R_{m\times n}$ will be the goal. We propose $R_{m\times n} = A^T(AA^T)^{-1}$ and through the equations below we will check if it will result in our main equation:
+		\begin{empheq}[box=\fbox]{equation*}
+		\mathbf{x}\mathbf{=A^T(AA^T)^{-1}y}
+		\end{empheq}
+		\begin{align*}
+		\mathbf{x}&\mathbf{=A^T(AA^T)^{-1}y}\\
+		\xrightarrow{\times A}\mathbf{Ax}&=\mathbf{AA^T(AA^T)^{-1}y}\\
+		\xrightarrow{\text{using *}}\mathbf{Ax}&=\mathbf{y}
+		\end{align*}
+		\rule{0.2\textwidth}{0.5pt}
+		
+		\subsection{Part (b): Inverse of $\mathbf{y_{n\times1}=A_{n\times m}x_{m\times 1}}$ where n>m and rank=m}
+		In this case there are more equations than unknowns, so the system is overdetermined. Because the matrix $A$ is full rank with $rank=m$, $A^TA$ will be an $m\times m$ non-singular square matrix. Therefore, there will be an inverse for it like below:
+		\begin{equation*}
+		(A^TA)^{-1}(A^TA)  = I
+		\tag{**}
+		\end{equation*}
+		As it is clear from the above equation, we may use $(A^TA)^{-1}A^T$ as a left inverse for matrix $A$. 
+		\begin{align*}
+		\mathbf{Ax}&\mathbf{=y}\\
+		\xrightarrow{\times A^T}\mathbf{A^TAx}&\mathbf{=A^Ty}\\
+		\xrightarrow[\text{using *}]{\times (A^TA)^{-1}}\;\;\;\;\;\;\;\;\;\mathbf{x}&\mathbf{=(A^TA)^{-1}A^Ty}
+		\end{align*}
+		\begin{empheq}[box=\fbox]{equation*}
+		\mathbf{x}\mathbf{=(A^TA)^{-1}A^Ty}
+		\end{empheq}
+	\end{homeworkQuestion}
+	\pagebreak
+	
+	\begin{homeworkQuestion}
+		\subsection{Part (a): Minimizing $\displaystyle \mathbf{\tilde{x}=\min_{x} \{\norm{x}_2^2+\frac{1}{2}\lambda^T(y-Ax)\} }$\\to find the solution of  $\mathbf{y_{n\times1}=A_{n\times m}x_{m\times 1}}$ where n<m and rank=n }
+		(Underdetermined System)\\
+		We define the function $J(x,\lambda)$ as:
+		\begin{equation*}
+		J(x,\lambda)=\norm{x}_2^2+\frac{1}{2}\lambda^T(y-Ax)
+		\end{equation*} 
+		now we find its partial derivatives and let them be zero:
+		\begin{align*}
+		\frac{\partial J}{\partial x}&=2x-\frac{1}{2}A^T\lambda=0 \rightarrow x=\frac{1}{4}A^T\lambda \tag{1}\\
+		\frac{\partial J}{\partial \lambda}&=\frac{1}{2}(y-Ax)=0 \rightarrow y=Ax \tag{2}
+		\end{align*}
+		by putting equation (1) into (2):
+		\begin{equation*}
+		y=\frac{1}{4}AA^T\lambda
+		\end{equation*}
+		we know that $AA^T$ is invertible so we can multiply both sides by $(AA^T)^{-1}$:
+		\begin{equation*}
+		\lambda=4(AA^T)^{-1}y
+		\end{equation*}
+		we use this $\lambda$ to replace it in equation (1):
+		\begin{equation*}
+		x=\frac{1}{4}A^T(4(AA^T)^{-1}y)
+		\end{equation*}
+		\begin{empheq}[box=\fbox]{equation*}
+		x=A^T(AA^T)^{-1}y
+		\end{empheq}
+	\rule{0.2\textwidth}{0.5pt}
+	
+	\subsection{Part (b-1): Minimizing $\displaystyle \mathbf{\tilde{x}=\min_{x} \{(y-Ax)^2\} }$\\to find the solution of  $\mathbf{y_{n\times1}=A_{n\times m}x_{m\times 1}}$ where n>m and rank=m }
+	(Overdetermined System)\\
+	We define the function $J(x)$ as:
+	\begin{align*}
+	J(x)=(y-Ax)^2&=\norm{y-Ax}^2_2\\
+								&=(y-Ax)^T(y-Ax)\\
+								&=y^Ty-2y^TAx+x^TA^TAx
+	\end{align*} 
+	now we find its partial derivatives and let them be zero:
+	\begin{align*}
+	\frac{\partial J}{\partial x}=-2A^Ty+2A^TAx=0\\
+	A^TAx=A^Ty
+	\end{align*}
+	we know that $A^TA$ is invertible so we can multiply both sides by $(A^TA)^{-1}$:
+	\begin{empheq}[box=\fbox]{equation*}
+	x=(A^TA)^{-1}A^Ty
+	\end{empheq}
+	\rule{0.2\textwidth}{0.5pt}
+	
+	\subsection{Part(b-2) : Minimizing $\displaystyle \mathbf{\tilde{x}=\min_{x} \{(y-Ax)^2+\frac{1}{2}\lambda\norm{x}_2^2\} }$\\to find the solution of  $\mathbf{y_{n\times1}=A_{n\times m}x_{m\times 1}}$ where n>m and rank=m }
+	(Overdetermined System)\\
+	We define the function $J(x)$ as:
+	\begin{align*}
+	J(x)=(y-Ax)^2+\frac{1}{2}\lambda\norm{x}_2^2&=\norm{y-Ax}^2_2+\frac{1}{2}\lambda\norm{x}_2^2\\
+	&=(y-Ax)^T(y-Ax)+\frac{1}{2}\lambda x^Tx\\
+	&=y^Ty-2y^TAx+x^TA^TAx+\frac{1}{2}\lambda x^Tx
+	\end{align*} 
+	now we find its partial derivatives and let them be zero:
+	\begin{align*}
+	\frac{\partial J}{\partial x}=-2A^Ty+2A^TAx+\lambda x&=0\\
+	(A^TA+\frac{1}{2}\lambda I)x&=A^Ty
+	\end{align*}
+	\begin{empheq}[box=\fbox]{equation*}
+	x=(A^TA+\frac{1}{2}\lambda I)^{-1}A^Ty
+	\end{empheq}
+\end{homeworkQuestion}
+
+
+
+\end{document}

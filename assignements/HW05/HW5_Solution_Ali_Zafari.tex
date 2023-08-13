@@ -1,0 +1,225 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{empheq}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{hyperref}
+\usepackage[dvipsnames]{xcolor} 
+\hypersetup{
+	colorlinks,
+	linkcolor=BrickRed,
+}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.2}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Question Sections
+%
+
+\newcommand{\enterQuestionHeader}[1]{
+	\nobreak\extramarks{}{Question \arabic{#1} cont'd on next page\ldots}\nobreak{}
+	\nobreak\extramarks{Question \arabic{#1} (cont'd)}{Question \arabic{#1} cont'd on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitQuestionHeader}[1]{
+	\nobreak\extramarks{Question \arabic{#1} (cont'd)}{Question \arabic{#1} cont'd on next page\ldots}\nobreak{}
+	\stepcounter{#1}
+	\nobreak\extramarks{Question \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkQuestionCounter}
+\setcounter{homeworkQuestionCounter}{1}
+\nobreak\extramarks{Question \arabic{homeworkQuestionCounter}}{}\nobreak{}
+
+%
+% Homework Question Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkQuestion}[1][-1]{
+	\ifnum#1>0
+	\setcounter{homeworkQuestionCounter}{#1}
+	\fi
+	\section{Question \arabic{homeworkQuestionCounter}}
+	\rule{0.9\textwidth}{3pt}\\
+	\setcounter{partCounter}{1}
+	\enterQuestionHeader{homeworkQuestionCounter}
+}{
+	\exitQuestionHeader{homeworkQuestionCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{HW\#5}
+\newcommand{\hmwkDueDate}{}
+\newcommand{\hmwkClass}{CpE 520}
+\newcommand{\institute}{West Virginia University}
+\newcommand{\hmwkClassInstructor}{Professor Nasser Nasrabadi}
+\newcommand{\hmwkAuthorName}{\textbf{Ali Zafari}}
+
+%
+% Title Page
+%
+
+\title{
+	\vspace{2in}
+	\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+	\vspace{0.1in}\large{\institute}\\
+%	\vspace{0.1in}\large{\textit{\hmwkClassInstructor}}
+	\vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\Large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+
+\begin{document}
+	
+	\pagenumbering{gobble}% prevent cover page of numbering
+	\maketitle
+	\pagebreak % let cover page free to the end of page
+	\pagenumbering{arabic} % start page numbering again from 1 and print them!
+	\tableofcontents
+	\pagebreak
+	
+	\section{Notation}
+	In this homework assignment we will use superscripts in parentheses to denote the sample number and subscripts to denote the feature number.\\\\
+
+		\begin{tabular}{l c l}
+			$x_i^{(j)}$  &:&value of i'th feature of the j'th input sample\\\\
+			$y^{(j)}(w)$  &:&predicted label of the j'th sample (which is a function of wieghts i.e. $w_i$'s)\\\\
+			$t^{(j)}$  &:&real label of the j'th sample
+		\end{tabular}
+	 	 
+	\pagebreak
+	
+	\begin{homeworkQuestion}
+		
+		\subsection{Binary Logistic Regression - Squared Error }
+		The gradient descent updating rule for each weight in neural network is
+		\begin{equation}
+		w_i^{t+1} = w_i^t-\eta\frac{\partial}{\partial w_i}J(w)
+		\label{grad_desc}
+		\end{equation}
+		in which $J(w)$ is the cost function and $\eta$ is learning rate.\\
+		
+		In this question our cost function is Squared Error, as given below
+		 \begin{equation*}
+		 J(w) = \frac{1}{2}\sum_{j=1}^{N}(t^{(j)}-y^{(j)}(w))^2
+		 \end{equation*}
+		 and we are going to minimize this cost by choosing the best values for $w_1, ..., w_n$ with the help of gradient descent updating rule i.e. equation \ref{grad_desc}.\\
+		 Therefore the first thing to be done is to find  $\frac{\partial}{\partial w_i}J(w)$:
+		 \begin{align*}
+		 \frac{\partial}{\partial w_i}J(w)&= \frac{\partial}{\partial w_i}\frac{1}{2}\sum_{j=1}^{N}(t^{(j)}-y^{(j)}(w))^2\\
+		 &=\frac{1}{2}\sum_{j=1}^{N}-2(t^{(j)}-y^{(j)}(w))\frac{\partial y^{(j)}(w)}{\partial w_i}\\
+		 &=-\sum_{j=1}^{N}(t^{(j)}-y^{(j)}(w))\frac{\partial y^{(j)}(w)}{\partial w_i}\numberthis	
+		 \label{cost_derivative_1}	 
+		 \end{align*}
+		 
+		 So now, we need to know $\frac{\partial y^{(j)}(w)}{\partial w_i}$.\\
+		  $y^{(j)}(w)$ is repeated below to use them for derivation:
+		 \begin{equation*}
+		 \begin{cases}
+		 y^{(j)}(w)=\frac{1}{1+exp(-z^{(j)}(w))}\\
+		 z^{(j)}(w)=\sum_{i=1}^{n}w_ix^{(j)}_i
+		 \end{cases}
+		 \end{equation*}
+		 and after gettingderivatives of both equations, we have:
+		 \begin{equation*}
+		 \begin{cases}
+		 \frac{\partial y^{(j)}(w)}{\partial w_i}=\frac{e^{-z^{(j)}}}{(1+e^{-z^{(j)}})^2}\frac{\partial z^{(j)}(w)}{\partial w_i}=\frac{1}{(1+e^{-z^{(j)}})}\frac{e^{-z^{(j)}}}{(1+e^{-z^{(j)}})}\frac{\partial z^{(j)}(w)}{\partial w_i}=y^{(j)}(w)(1-y^{(j)}(w))\frac{\partial z^{(j)}(w)}{\partial w_i}\\
+		 \frac{\partial z^{(j)}(w)}{\partial w_i}=x^{(j)}_i
+		 \end{cases}
+		 \end{equation*}
+		 
+		 so we now have $\frac{\partial y^{(j)}(w)}{\partial w_i}$ as:
+		 \begin{equation*}
+		 \frac{\partial y^{(j)}(w)}{\partial w_i}=y^{(j)}(w)(1-y^{(j)}(w))x^{(j)}_i
+		 \tag{*}
+		 \end{equation*}
+		 \\\\\\\\
+		 The last thing to do is to replace the above eqution into equation \ref{cost_derivative_1}:
+		 \begin{equation*}
+		 \frac{\partial}{\partial w_i}J(w)=-\sum_{j=1}^{N}(t^{(j)}-y^{(j)}(w))y^{(j)}(w)(1-y^{(j)}(w))x^{(j)}_i
+		 \end{equation*}
+		 Updating rule of gradient descent(equation \ref{grad_desc}) will be:
+		 \begin{empheq}[box=\fbox]{equation*}
+		 w_i^{t+1} = w_i^t+\eta\sum_{j=1}^{N}(t^{(j)}-y^{(j)}(w))y^{(j)}(w)(1-y^{(j)}(w))x^{(j)}_i
+		 \end{empheq}
+		
+		%\begin{center}
+		%	\rule{0.5\textwidth}{0.5pt}
+		%\end{center}
+		
+	\end{homeworkQuestion}
+	\pagebreak
+	
+	\begin{homeworkQuestion}
+		
+		\subsection{Binary Logistic Regression - Cross Entropy }
+		We follow the same procedure as we did in question 1, except for the definition of cost function. The new cost function is defined below:
+		\begin{equation*}
+		J(w) = -\sum_{j=1}^{N}t^{(j)}\log y^{(j)}(w)+(1-t^{(j)})\log(1- y^{(j)}(w))
+		\end{equation*}
+		we find its derivative as:
+		\begin{align*}
+		\frac{\partial}{\partial w_i}J(w)&= \frac{\partial}{\partial w_i}[ -\sum_{j=1}^{N}t^{(j)}\log y^{(j)}(w)+(1-t^{(j)})\log(1- y^{(j)}(w))]\\
+		&=-\sum_{j=1}^{N}t^{(j)}\frac{\frac{\partial y^{(j)}(w)}{\partial w_i}}{y^{(j)}(w)}-(1-t^{(j)})\frac{\frac{\partial y^{(j)}(w)}{\partial w_i}}{1-y^{(j)}(w)}\numberthis	
+		\label{cost_derivative_2} 
+		\end{align*}
+		we now replace the $\frac{\partial y^{(j)}(w)}{\partial w_i}$ in the numerators of \ref{cost_derivative_2} with the result of equation (*) from previous question as shown below:
+		\begin{align*}
+		w_i^{t+1}&=w_i^t+\eta\sum_{j=1}^{N}t^{(j)}\frac{y^{(j)}(w)(1-y^{(j)}(w))x^{(j)}_i}{y^{(j)}(w)}-(1-t^{(j)})\frac{y^{(j)}(w)(1-y^{(j)}(w))x^{(j)}_i}{1-y^{(j)}(w)}\\
+		&=w_i^t+\eta\sum_{j=1}^{N}x^{(j)}_i[t^{(j)}-t^{(j)}y^{(j)}(w)-y^{(j)}(w)+t^{(j)}y^{(j)}(w)]
+		\end{align*}
+		\begin{empheq}[box=\fbox]{equation*}
+		w_i^{t+1} = w_i^t+\eta\sum_{j=1}^{N}(t^{(j)}-y^{(j)}(w))x^{(j)}_i
+		\end{empheq}
+	\end{homeworkQuestion}
+	
+\end{document}

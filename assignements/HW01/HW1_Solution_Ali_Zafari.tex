@@ -1,0 +1,691 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{empheq}
+
+
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+	\nobreak\extramarks{}{Problem \arabic{#1} cont'd on next page\ldots}\nobreak{}
+	\nobreak\extramarks{Problem \arabic{#1} (cont'd)}{Problem \arabic{#1} cont'd on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+	\nobreak\extramarks{Problem \arabic{#1} (cont'd)}{Problem \arabic{#1} cont'd on next page\ldots}\nobreak{}
+	\stepcounter{#1}
+	\nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+	\ifnum#1>0
+	\setcounter{homeworkProblemCounter}{#1}
+	\fi
+	\section{Problem \arabic{homeworkProblemCounter}}
+	\setcounter{partCounter}{1}
+	\enterProblemHeader{homeworkProblemCounter}
+}{
+	\exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{HW\ \#1}
+\newcommand{\hmwkDueDate}{}
+\newcommand{\hmwkClass}{CpE 520}
+\newcommand{\institute}{West Virginia University}
+\newcommand{\hmwkClassInstructor}{Professor Nasser Nasrabadi}
+\newcommand{\hmwkAuthorName}{\textbf{Ali Zafari}}
+
+%
+% Title Page
+%
+
+\title{
+	\vspace{2in}
+	\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+	\vspace{0.1in}\large{\institute}\\
+	%\vspace{0.1in}\large{\textit{\hmwkClassInstructor}}
+	\vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\huge Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+
+\begin{document}
+	
+	\maketitle
+	
+	\pagebreak
+	
+	\begin{homeworkProblem}
+		\rule{0.7\textwidth}{1pt}
+		
+		\subsection{Part One: $X_1$}\label{p1_part_one}
+		\begin{equation*}
+		X_1 =
+		\begin{bmatrix}
+		2 & 1 & 3\\
+		1 & 2 & 1
+		\end{bmatrix}
+		\end{equation*}
+		\textbf{Rank=2:}\\
+		 $X_1$'s column space has a dimension of 2. (The third column is a linear combination of the first and second columns)
+		\\\\
+		\textbf{SVD:}\\
+		Singular value decomposition is like:
+		\begin{empheq}[box=\fbox]{equation*}
+		X_{1_{2\times 3}} = U_{1_{2\times 2}}\Sigma_{1_{2\times 3}} V^T_{1_{3\times 3}}
+		\end{empheq}
+		
+		We know that $X_1^TX_1=V\Sigma^T\Sigma V^T$ so:
+		\begin{equation*}
+		X_1^TX_1=
+		\begin{bmatrix}
+		5	& 4	& 7\\	
+		4	& 5	& 5\\
+		7	& 5	& 10
+		\end{bmatrix}
+		\end{equation*}
+		
+		$\Sigma^T\Sigma $ is actually a diagonal matrix of eigenvalues of $X_1^TX_1$ which are also equal to the squared singular values of $X_1$:
+		\begin{gather*}
+		det(X_1^TX_1-\lambda I)=-\lambda(\lambda^2-20\lambda+35)=0\\
+		\lambda_1=18.0623\\
+		\lambda_2=1.9377\\
+		\lambda_3=0
+		\end{gather*}
+		
+		Now we find the eigenvector corresponding to each eigenvalue using the row elimination to find the null space for $(X_1^TX_1-\lambda_iI)\begin{bmatrix}x_1\\x_2\\x_3\end{bmatrix}=0$:\\
+		\begin{itemize}
+		\item 
+		% lamda1
+		$\mathbf{\lambda_1=18.0623}$\\
+		\begin{equation*}
+		\begin{bmatrix}
+		1	& 0	& -0.7207\\	
+		0	& 1	& -0.6035\\	
+		0	& 0	& 0
+		\end{bmatrix}
+		\begin{bmatrix}x_1\\x_2\\x_3\end{bmatrix}=0
+		\end{equation*}
+		
+		by choosing $x_3=1$ we have:
+		\begin{equation*}
+		v_1 = \begin{bmatrix}0.7207\\0.6035\\1\end{bmatrix}
+		\end{equation*}
+		
+		\item 
+		% lamda2
+		$\mathbf{\lambda_2=1.9377}$\\
+		\begin{equation*}
+		\begin{bmatrix}
+		1	& 0	& -0.2168\\	
+		0	& 1	& 1.916\\	
+		0	& 0	& 0
+		\end{bmatrix}
+		\begin{bmatrix}x_1\\x_2\\x_3\end{bmatrix}=0
+		\end{equation*}
+		
+		by choosing $x_3=1$ we have:
+		\begin{equation*}
+		v_2 = \begin{bmatrix}0.2168\\-1.916	\\1\end{bmatrix}
+		\end{equation*}
+		
+		\item 
+		% lamda3
+		$\mathbf{\lambda_3=0}$\\
+		\begin{equation*}
+		\begin{bmatrix}
+		1	& 0	& 1.6667\\	
+		0	& 1	& -0.3333\\	
+		0	& 0	& 0
+		\end{bmatrix}
+		\begin{bmatrix}x_1\\x_2\\x_3\end{bmatrix}=0
+		\end{equation*}
+		
+		by choosing $x_3=1$ we have:
+		\begin{equation*}
+		v_3 = \begin{bmatrix}-1.6667\\0.3333\\1\end{bmatrix}
+		\end{equation*}
+		
+		\end{itemize}
+		
+		then we normalize each eigenvector to make the $V$ matrix orthogonal:
+		\begin{equation*}
+		V=
+		\begin{bmatrix}
+		0.5251 & 0.0998 & -0.8452	\\
+		0.4397 & -0.8821 & 0.169	\\
+		0.7286 & 0.4604 & 0.5071
+		\end{bmatrix}
+		\end{equation*}
+		
+		To find $U$ matrix we use the equation $X_1V=U\Sigma$ and this equation in vector form could be used more effectively as $u_i=\frac{1}{\sigma_i}X_1v_i$ (except for the $\sigma_i=0$), noting that normalizing again is necessary for $u_i$:
+		\begin{align*}
+		u_1&=\begin{bmatrix}0.8649\\0.5019\end{bmatrix}\\
+		u_2&=\begin{bmatrix}0.5019\\-0.8649\end{bmatrix}
+		\end{align*}
+		
+		Finally:
+		\begin{equation*}
+		X_1=
+		\begin{bmatrix}
+		0.8649 & 0.5019\\
+		0.5019 & -0.8649
+		\end{bmatrix}
+		\begin{bmatrix}
+		4.25 & 0 & 0\\ 
+		0 & 1.392 & 0
+		\end{bmatrix}
+		\begin{bmatrix}
+		0.5251 & 0.4397 & 0.7286\\
+		0.0998 & -0.8821 & 0.4604\\
+		-0.8452 & 0.169 & 0.5071 
+		\end{bmatrix}
+		=
+		\begin{bmatrix}
+		2 & 1 & 3\\
+		1 & 2 & 1
+		\end{bmatrix}
+		\end{equation*}
+		
+		\rule{0.2\textwidth}{0.5pt}
+		\subsection{Part Two: $X_2$}\label{p1_part_two}
+		\begin{equation*}
+		X_2 =
+		\begin{bmatrix}
+		2 & 1\\
+		1 & 2\\
+		3 & 1
+		\end{bmatrix}
+		\end{equation*}
+		\textbf{Rank = :}\\
+		$X_2$ is the transpose of $X_1$ so its rank is equivalently 2.
+		\\\\
+		\textbf{SVD:}\\
+		\begin{empheq}[box=\fbox]{equation*}
+		X_{2_{3\times 2}} = U_{2_{3\times 3}}\Sigma_{2_{3\times 2}} V^T_{2_{2\times 2}}
+		\end{empheq}
+		To find the svd of $X_2$ we could use the same procedure of \textbf{Part One} but it is obvious that $X_2$ is the transpose of $X_1$, so we can do some calculations:
+		\begin{align*}
+					X_{1}&= U_1\Sigma_1 V^T_1\\
+					X_{2}&= U_2\Sigma_2 V^T_2\\\\
+		X_2=X_1^T&=(U_1\Sigma_1 V_1^T)^T\\
+							&=V_1\Sigma_1^TU_1^T
+		\end{align*}
+		
+		\begin{equation*}
+		X_2=
+		\begin{bmatrix}
+		0.5251 & 0.0998 & -0.8452	\\
+		0.4397 & -0.8821 & 0.169	\\
+		0.7286 & 0.4604 & 0.5071
+		\end{bmatrix}
+		\begin{bmatrix}
+		4.25 & 0\\ 
+		0 & 1.392\\
+		0 & 0
+		\end{bmatrix}
+		\begin{bmatrix}
+		0.8649 & 0.5019\\
+		0.5019 & -0.8649
+		\end{bmatrix}
+		=
+		\begin{bmatrix}
+		2 & 1\\
+		1 & 2\\
+		3 & 1
+		\end{bmatrix}
+		\end{equation*}
+		\rule{0.2\textwidth}{0.5pt}
+		
+		\subsection{Part Three: $X_3$}\label{p1_part_three}
+		\begin{equation*}
+		X_3=
+		\begin{bmatrix}
+		1 & 3 & 2 & 5\\
+		2 & 5 & 3 & 9\\
+		2 & 1 & -1 & 5\\
+		3 & 2 & -1 & 8\\
+		1 & 1 & 0 & 3
+		\end{bmatrix}
+		\end{equation*}
+		\textbf{Rank = 2:}\\
+		$X_3$'s column space consist of the $1^{st}$ and $3^{rd}$ columns only. ($2^{nd}$ and $4^{th}$ columns are linear combinations of them)
+		\\\\
+		\textbf{SVD:}\\
+
+		\begin{empheq}[box=\fbox]{equation*}
+		X_{3_{5\times 4}} = U_{3_{5\times 5}}\Sigma_{3_{5\times 4}} V^T_{3_{4\times 4}}
+		\end{empheq}
+		By using the same algorithm as in \textbf{Part One} we can calculate SVD for $X_3$. We know that $X_3^TX_3=V\Sigma^T\Sigma V^T$ so:
+		\begin{equation*}
+		X_3^TX_3=
+		\begin{bmatrix}
+		19 & 22 & 3 & 60\\	
+		22 & 40 & 18 & 84\\
+		3 & 18 & 15 & 24\\
+		60 & 84 & 24 & 204
+		\end{bmatrix}
+		\end{equation*}
+		
+		$\Sigma^T\Sigma $ is actually a diagonal matrix of eigenvalues of $X_3^TX_3$ which are also equal to the squared singular values of $X_3$:
+		\begin{gather*}
+		det(X_3^TX_3-\lambda I)=\lambda^2(\lambda^2-278\lambda+4692)=0\\
+		\lambda_1=259.9504\\
+		\lambda_2=18.0496\\
+		\lambda_3=0\\
+		\lambda_4=0
+		\end{gather*}
+		
+		Now we find the eigenvector corresponding to each eigenvalue using the row elimination to find the null space for $(X_3^TX_3-\lambda_iI)\begin{bmatrix}x_1\\x_2\\x_3\\x_4\end{bmatrix}=0$:\\
+		\begin{itemize}
+			\item 
+			% lamda1
+			$\mathbf{\lambda_1=259.9504}$\\
+			\begin{equation*}
+			\begin{bmatrix}
+			1 & 0 & 0 & -0.2892\\
+			0 & 1 & 0 & -0.4217\\
+			0 & 0 & 1 & -0.1325\\
+			0 & 0 & 0 & 0
+			\end{bmatrix}
+			\begin{bmatrix}x_1\\x_2\\x_3\\x_4\end{bmatrix}=0
+			\end{equation*}
+			
+			by choosing $x_4=1$ we have:
+			\begin{equation*}
+			v_1 = \begin{bmatrix}0.2892\\0.4217\\0.1325\\1\end{bmatrix}
+			\end{equation*}
+			
+			\item 
+			% lamda2
+			$\mathbf{\lambda_2=18.0496}$\\
+			\begin{equation*}
+			\begin{bmatrix}
+			1 & 0 & 0 & -1.6331\\
+			0 & 1 & 0 & 2.2661\\
+			0 & 0 & 1 & 3.8992\\
+			0 & 0 & 0 & 0
+			\end{bmatrix}
+			\begin{bmatrix}x_1\\x_2\\x_3\\x_4\end{bmatrix}=0
+			\end{equation*}
+			
+			by choosing $x_4=1$ we have:
+			\begin{equation*}
+			v_2 = \begin{bmatrix}1.6331\\-2.2661\\-3.8992\\1\end{bmatrix}
+			\end{equation*}
+			
+			\item 
+			% lamda3 and lambda4
+			$\mathbf{\lambda_{3,4}=0}$\\
+			For distinct eigenvalues of a symmetric real-valued matrix we could be sure about orthogonality of their corresponding eigenvectors. So to find two orthogonal eigenvectors for two eigenvalues  $\lambda_{3}=0$ and $\lambda_{3}=0$ their orthogonality should be under consideration.
+			\begin{equation*}
+			\begin{bmatrix}
+			1 & 0 & -1 & 2\\
+			0 & 1 & 1 & 1\\
+			0 & 0 & 0 & 0\\
+			0 & 0 & 0 & 0
+			\end{bmatrix}
+			\begin{bmatrix}x_1\\x_2\\x_3\\x_4\end{bmatrix}=0
+			\end{equation*}
+			we now assume to eigenvectors:
+			\begin{align*}
+			v3=\begin{bmatrix}x_3-2x_4\\-x_3-x_4\\x_3\\x_4\end{bmatrix}
+			v4=\begin{bmatrix}x_3^{\prime}-2x_4^{\prime}\\-x_3^{\prime}-x_4^{\prime}\\x_3^{\prime}\\x_4^{\prime}\end{bmatrix}
+			\end{align*}
+			their dot product must be zero:
+			\begin{equation*}
+			v_3^Tv_4=3x_3x_3^\prime+6x_4x_4^\prime-x_3x_4^\prime-x_4x_3^\prime=0
+			\tag{*}
+			\end{equation*}
+			
+			by choosing $x_3=0$ and $x_4=1$ we have:
+			\begin{equation*}
+			v_3 = \begin{bmatrix}-2\\-1\\0\\1\end{bmatrix}
+			\end{equation*}
+			now we are forced to choose $x_3^\prime$ and $x_4^\prime$ accordingly to hold the equation (*) true. So we must choose $x_3^\prime=6$ and $x_4^\prime=1$
+			\begin{equation*}
+			v_4 = \begin{bmatrix}4\\-7\\6\\1\end{bmatrix}
+			\end{equation*}
+			
+		\end{itemize}
+		
+		then we normalize each eigenvector to make the $V$ matrix orthogonal:
+		\begin{equation*}
+		V=
+		\begin{bmatrix}
+		0.2557 & 0.333 & -0.8165 & 0.3961\\
+		0.3728 & -0.4625 & -0.4082 & -0.6931\\
+		0.1172 & -0.7958 & 0 & 0.5941\\
+		0.8842 & 0.2042 & 0.4082 & 0.099
+		\end{bmatrix}
+		\end{equation*}
+		
+		To find $U$ matrix we use the equation $X_3X_3^T=U\Sigma\Sigma^TU^T$ and follow the same procedure that were used to find $V$, here only the final solutions for vectors of $U$ are mentioned:
+		\begin{align*}
+		u_1&=\begin{bmatrix}0.374\\0.6627\\0.3218\\0.5253\\0.2035\end{bmatrix}\\
+		u_2&=\begin{bmatrix}-0.3826\\-0.517\\0.4756\\0.5893\\0.1137\end{bmatrix}\\
+		u_3&=\begin{bmatrix}0.8018\\-0.5345\\0\\0\\0.2673\end{bmatrix}\\
+		u_4&=\begin{bmatrix}-0.0344\\-0.0516\\-0.8087\\0.585\\0\end{bmatrix}\\
+		u_5&=\begin{bmatrix}0.8435\\-0.5336\\0.0351\\0.0511\\0\end{bmatrix}
+		\end{align*}
+		
+		Finally:	
+		\begin{align*}
+		X_3&=
+		\begin{bmatrix}
+		0.374 & -0.3826 & 0.8018 & -0.0344 & 0.8435\\
+		0.6627 & -0.517 & -0.5345 & -0.0516 & -0.5336\\
+		0.3218 & 0.4756 & 0 & -0.8087 & 0.0352\\
+		0.5253 & 0.5893 & 0 & 0.585 & 0.0511\\
+		0.2035 & 0.1137 & 0.2673 & 0 & 0
+		\end{bmatrix}
+		\begin{bmatrix}
+		16.123 & 0 & 0 & 0\\
+		0 & 4.2485 & 0 & 0\\
+		0 & 0 & 0 & 0\\
+		0 & 0 & 0 & 0\\
+		0 & 0 & 0 & 0
+		\end{bmatrix}\\
+		&\times
+		\begin{bmatrix}
+		0.2557 & 0.3729 & 0.1172 & 0.8842\\	
+		0.3333 & -0.4625 & -0.7958 & 0.2041\\
+		-0.8165 & -0.4082 & 0 & 0.4082\\
+		0.3961 & -0.6931 & 0.5941 & 0.099
+		\end{bmatrix}
+		\approx
+		\begin{bmatrix}
+		1 & 3 & 2 & 5\\
+		2 & 5 & 3 & 9\\
+		2 & 1 & -1 & 5\\
+		3 & 2 & -1 & 8\\
+		1 & 1 & 0 & 3
+		\end{bmatrix}
+		\end{align*}
+
+	\end{homeworkProblem}
+	\pagebreak
+	
+	\begin{homeworkProblem}
+		\rule{0.7\textwidth}{1pt}
+		\subsection{Part One: $SVD\{X_1X_2\}$}
+		\begin{align*}
+		X1X2  &=(U_{1}\Sigma_{1} V^T_{1})(U_{2}\Sigma_{2} V^T_{2})\\
+					&=(U_{1}\Sigma_{1} V^T_{1})(V_1\Sigma_1^T U_1^T)\\
+					&=(U_{1}\Sigma_{1})( V^T_{1}V_1)(\Sigma_1^T U_1^T)\\
+					&=U_{1}(\Sigma_1\Sigma_1^T) U_1^T\\
+		\end{align*}
+		\begin{align*}
+		X_1X_2=
+		\begin{bmatrix}
+		0.8649 & 0.5019\\
+		0.5019 & -0.8649
+		\end{bmatrix}
+		\begin{bmatrix}
+		18.0623 & 0\\
+		0 & 1.9377
+		\end{bmatrix}
+		\begin{bmatrix}
+		0.8649 & 0.5019\\
+		0.5019 & -0.8649
+		\end{bmatrix}
+		\end{align*}
+		\rule{0.2\textwidth}{0.5pt}
+		
+		\subsection{Part Two: $SVD\{X_2X_1\}$}
+		\begin{align*}
+		X2X1  &=(U_{2}\Sigma_{2} V^T_{2})(U_{1}\Sigma_{1} V^T_{1})\\
+					&=(V_1\Sigma_1^T U_1^T)(U_{1}\Sigma_{1} V^T_{1})\\
+					&=(V_1\Sigma_1^T )(U_1^TU_{1})(\Sigma_{1} V^T_{1})\\
+					&=V_1(\Sigma_1^T\Sigma_1)V^T_{1}\\
+		\end{align*}
+		\begin{align*}
+		X_2X_1=
+		\begin{bmatrix}
+		0.5251 & 0.0998 & -0.8452	\\
+		0.4397 & -0.8821 & 0.169	\\
+		0.7286 & 0.4604 & 0.5071
+		\end{bmatrix}
+		\begin{bmatrix}
+		18.0623 & 0 & 0\\
+		0 & 1.9377 & 0\\
+		0 & 0 & 0
+		\end{bmatrix}
+		\begin{bmatrix}
+		0.5251 & 0.4397 & 0.7286\\
+		0.0998 & -0.8821 & 0.4604\\
+		-0.8452 & 0.169 & 0.5071 
+		\end{bmatrix}
+		\end{align*}
+		\rule{0.2\textwidth}{0.5pt}
+		
+		\subsection{Part Three: $SVD\{X_3X_3^T\}$}
+		\begin{align*}
+		X_3X_3^T &=(U_{3}\Sigma_{3} V^T_{3})(U_{3}\Sigma_{3} V^T_{3})^T\\
+							&=(U_{3}\Sigma_{3} V^T_{3})(V_3\Sigma_{3}^TU_{3}^T)\\
+							&=(U_{3}\Sigma_{3} )(V^T_{3}V_3)(\Sigma_{3}^TU_{3}^T)\\
+							&=U_{3}(\Sigma_{3}\Sigma_{3}^T)U_{3}^T
+		\end{align*}
+		\begin{align*}
+		X_3X_3^T&=
+		\begin{bmatrix}
+		0.374 & -0.3826 & 0.8018 & -0.0344 & 0.8435\\
+		0.6627 & -0.517 & -0.5345 & -0.0516 & -0.5336\\
+		0.3218 & 0.4756 & 0 & -0.8087 & 0.0352\\
+		0.5253 & 0.5893 & 0 & 0.585 & 0.0511\\
+		0.2035 & 0.1137 & 0.2673 & 0 & 0
+		\end{bmatrix}
+		\begin{bmatrix}
+		259.9504 & 0 & 0 & 0 & 0\\
+		0 & 18.0496 & 0 & 0 & 0\\
+		0 & 0 & 0 & 0 & 0\\
+		0 & 0 & 0 & 0 & 0\\
+		0 & 0 & 0 & 0 & 0
+		\end{bmatrix}\\
+		&\times
+		\begin{bmatrix}
+		0.374 & 0.6627  & 0.3218 & 0.5253 & 0.2035\\
+		-0.3826 & -0.517 & 0.4756 & 0.5893 & 0.1137\\
+		0.8018 &  -0.5345 & 0 & 0 & 0.2673\\
+		-0.0344 & -0.0516 & -0.8087 & 0.585 & 0\\
+		0.8435 & -0.5336 & 0.0352 & 0.0511 & 0
+		\end{bmatrix}
+		\end{align*}
+		\rule{0.2\textwidth}{0.5pt}
+		
+		\subsection{Part Four: $SVD\{X_3^TX_3\}$}
+		\begin{align*}
+		X_3^TX_3 &=(U_{3}\Sigma_{3} V^T_{3})^T(U_{3}\Sigma_{3} V^T_{3})\\
+							&=(V_3\Sigma_{3}^TU_{3}^T)(U_{3}\Sigma_{3} V^T_{3})\\
+							&=(V_3\Sigma_{3}^T )(U_{3}^TU_{3})(\Sigma_{3} V^T_{3})\\
+							&=V_3(\Sigma_{3}^T\Sigma_{3})V^T_{3}
+		\end{align*}
+		\begin{align*}
+		X_3^TX_3&=
+		\begin{bmatrix}
+		0.2557 & 0.3333 & -0.8165 & 0.3961\\
+		0.3729 & -0.4625 & -0.4082 & -0.6931\\
+		0.1172 & -0.4082 & 0 & 0.5941\\
+		0.8842 & -0.6931 & 0.4082 & 0.099
+		\end{bmatrix}
+		\begin{bmatrix}
+		259.9504 & 0 & 0 & 0\\
+		0 & 18.0496 & 0 & 0\\
+		0 & 0 & 0 & 0\\
+		0 & 0 & 0 & 0
+		\end{bmatrix}\\
+		&\times
+		\begin{bmatrix}
+		0.2557 & 0.3729 & 0.1172 & 0.8842\\	
+		0.3333 & -0.4625 & -0.7958 & 0.2041\\
+		-0.8165 & -0.4082 & 0 & 0.4082\\
+		0.3961 & -0.6931 & 0.5941 & 0.099
+		\end{bmatrix}
+		\end{align*}
+
+	\end{homeworkProblem}	
+	\pagebreak
+	
+	\begin{homeworkProblem}
+		\rule{0.7\textwidth}{1pt}
+		\subsection{Part One: $X_1^{-1}$}
+		$X_1$ will have a pseudo-inverse as:
+		\begin{align*}
+		X_1^{-1}   &=(U_{1}\Sigma_{1} V^T_{1})^{-1}\\
+							&=V_{1}\Sigma_{1}U_{1}^{-1}\\
+							&=V_{1}\Sigma_{1}^{-1}U_{1}^{T}
+		\end{align*}
+		\begin{align*}
+		X_1^{-1}   =
+		\begin{bmatrix}
+		0.5251 & 0.0998 & -0.8452	\\
+		0.4397 & -0.8821 & 0.169	\\
+		0.7286 & 0.4604 & 0.5071
+		\end{bmatrix}
+		\begin{bmatrix}
+		0.2353&0\\
+		0&0.7184\\
+		0&0
+		\end{bmatrix}
+		\begin{bmatrix}
+		0.8649 & 0.5019\\
+		0.5019 & -0.8649
+		\end{bmatrix}		
+		\end{align*}
+		this inverse only works as $X_1X_1^{-1}=I$ because $X_1$ is a rectangular matrix.\\
+		\rule{0.2\textwidth}{0.5pt}
+		
+		\subsection{Part Two: $X_2^{-1}$}
+		$X_2$ will have a pseudo-inverse as:
+		\begin{align*}
+		X_2^{-1}   &=(U_{2}\Sigma_{2} V^T_{2})^{-1}\\
+							&=(V_1\Sigma_1^T U_1^T)^{-1}\\
+							&=U_1(\Sigma_1^T)^{-1}V_1^T
+		\end{align*}
+		\begin{align*}
+		X_2^{-1}   =
+		\begin{bmatrix}
+		0.8649 & 0.5019\\
+		0.5019 & -0.8649
+		\end{bmatrix}
+		\begin{bmatrix}
+		0.2353 & 0 & 0\\
+		0 & 0.7184 & 0
+		\end{bmatrix}
+		\begin{bmatrix}
+		0.5251 & 0.4397 & 0.7286\\
+		0.0998 & -0.8821 & 0.4604\\
+		-0.8452 & 0.169 & 0.5071 
+		\end{bmatrix}
+		\end{align*}
+		this inverse only works as $X_2^{-1}X_2=I$ because $X_2$ is a rectangular matrix.\\
+		\rule{0.2\textwidth}{0.5pt}
+		
+		\subsection{Part Three: $(X_1X_2)^{-1}$}
+		From \textbf{Part One} of \textbf{Problem 2} we know that $X_1X_2=U_{1}(\Sigma_1\Sigma_1^T) U_1^T$ so:
+		\begin{align*}
+		(X_1X_2)^{-1} &=(U_{1}(\Sigma_1\Sigma_1^T) U_1^T)^{-1}\\
+									&=(U_1^T)^{-1}(\Sigma_1\Sigma_1^T)^{-1}U_{1}^{-1}\\
+									&=U_1(\Sigma_1\Sigma_1^T)^{-1}U_{1}^T
+		\end{align*}
+		\begin{align*}
+		(X_1X_2)^{-1}=
+		\begin{bmatrix}
+		0.8649 & 0.5019\\
+		0.5019 & -0.8649
+		\end{bmatrix}
+		\begin{bmatrix}
+		0.0554 & 0\\
+		0 & 0.5161
+		\end{bmatrix}
+		\begin{bmatrix}
+		0.8649 & 0.5019\\
+		0.5019 & -0.8649
+		\end{bmatrix}
+		\end{align*}
+		$X_1X_2$ is a square matrix with no zero in its singular values. So it has an inverse as written above.
+		\rule{0.2\textwidth}{0.5pt}
+		
+		\subsection{Part Four: $(X_2X_1)^{-1}$}
+		$X_2X_1$ has zero in its singular values on the diagonal elements of its $\Sigma$ so it won't have an inverse.\\
+		%
+		%From \textbf{Part Two} of \textbf{Problem 2} we know that $X_2X_1=V_1(\Sigma_1^T\Sigma_1)V^T_{1}$ so:
+		%\begin{align*}
+		%(X_2X_1)^{-1} &=(V_1(\Sigma_1^T\Sigma_1)V^T_{1})^{-1}\\
+		%							&=(V_1^T)^{-1}(\Sigma_1^T\Sigma_1)^{-1}V_{1}^{-1}\\
+		%							&=V_1(\Sigma_1^T\Sigma_1)^{-1}V_{1}^T
+		%\end{align*}
+		\rule{0.2\textwidth}{0.5pt}
+		
+		\subsection{Part Five: $X_3^{-1}$}
+		$X_3$ has zero in its singular values on the diagonal elements of its $\Sigma$ so it won't have an inverse.\\
+		%$X_3$ will have a pseudo-inverse as:
+		%\begin{align*}
+		%X_3^{-1}   &=(U_{3}\Sigma_{3} V^T_{3})^{-1}\\
+		%					&=(V_{3}^T)^{-1}\Sigma_{3}^{-1}U_{3}^{-1}\\
+		%					&=V_{3}\Sigma_{3}^{-1}U_{3}^{T}
+		%\end{align*}
+		
+	\end{homeworkProblem}	
+	
+\end{document}
